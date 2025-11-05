@@ -107,7 +107,9 @@ anchor.group.add(glasses.scene);
 
 ```
 ## OUTPUT:
+![alt text](<AR VR EX 05.png>)
 
+![alt text](image.png)
 
 
 ## RESULT:

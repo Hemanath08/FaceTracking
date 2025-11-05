@@ -1,0 +1,37 @@
+import { loadGLTF, loadTexture } from "./libs/loader.js";
+
+const THREE = window.MINDAR.FACE.THREE;
+
+document.addEventListener("DOMContentLoaded", () => {
+  const start = async () => {
+    const mindarThree = new window.MINDAR.FACE.MindARThree({
+      container: document.body,
+    });
+
+    const { renderer, scene, camera } = mindarThree;
+
+    const light = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1);
+    scene.add(light);
+const glasses = await loadGLTF('./asserts/models/glasses1/scene.gltf');
+glasses.scene.scale.multiplyScalar(0.01);
+const anchor = mindarThree.addAnchor(168);
+anchor.group.add(glasses.scene);
+
+    //const faceMesh = mindarThree.addFaceMesh();
+    //const texture = await loadTexture("./asserts/facemesh/face-mask-template/Face_Mask_Template.png");
+    //faceMesh.material.map = texture;
+    //faceMesh.material.transparent = true;
+    //faceMesh.material.needsUpdate = true;
+    //scene.add(faceMesh);
+
+    await mindarThree.start();
+
+    const animate = () => {
+      renderer.render(scene, camera);
+      requestAnimationFrame(animate);
+    };
+    animate();
+  };
+
+  start();
+});
